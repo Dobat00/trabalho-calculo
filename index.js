@@ -10,7 +10,8 @@
 //ELEMENTOS DO DOM
 let divMain = document.getElementById("main");
 let teste = document.createElement("h1");
-teste.textContent = "teste";
+teste.textContent =
+  "Digite o tamanho do quadrado (em metros quadrados), e o programa ira retornar o valor otimizado de X, para que a caixa tenha o maior volume";
 
 divMain.appendChild(teste);
 console.log(divMain);
