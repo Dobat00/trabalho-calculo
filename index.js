@@ -28,6 +28,27 @@ let tResultado = document.createElement("p");
 divResultado.appendChild(tResultado);
 divMain.appendChild(divResultado);
 
+//elementos do dom do segundo problema (triangulo)
+let divProb2 = document.createElement("div");
+divMain.appendChild(divProb2);
+let texto2 = document.createElement("h1");
+texto2.textContent =
+  "Insira os valores dos catetos, para descobrir a maior area.";
+divProb2.appendChild(texto2);
+let input2 = document.createElement("input");
+input2.placeholder = "valor do cateto 1";
+let input3 = document.createElement("input");
+input3.placeholder = "valor do cateto 2";
+divProb2.appendChild(input2);
+divProb2.appendChild(input3);
+let buttonTriangulo = document.createElement("button");
+divProb2.appendChild(buttonTriangulo);
+buttonTriangulo.textContent = "confirmar";
+
+//resultado do problema 2
+let resultadoTriangulo = document.createElement("p");
+divProb2.appendChild(resultadoTriangulo);
+
 //VARIAVEIS MATEMATICA
 let x = 0;
 buttonConfirm.onclick = () => {
@@ -37,19 +58,26 @@ buttonConfirm.onclick = () => {
   tResultado.textContent = `o valor de X para o maior volume: ${x}`;
 };
 
-// Function to find the optimal Y for maximum volume
+buttonTriangulo.onclick = () => {
+  console.log("problema 2");
+  let conteudo = input2.value;
+  let conteudo2 = input3.value;
+  let result = calcularAreaMaxima(conteudo, conteudo2);
+};
+
+// funcao que encontra o valor otimizado de Y
 function optimalYSize(X) {
-  // Define the volume function
+  // Funcao que define o volume
   function volume(Y) {
     return (X - 2 * Y) ** 2 * Y;
   }
 
-  // Function to find the derivative of the volume function
+  // Funcao que encontra a derivada do volume
   function derivative(Y) {
     return -8 * X * Y + 12 * Y ** 2;
   }
 
-  // Function to perform numerical optimization (gradient descent)
+  // Realiza a otimizacao numerica de maneira iterativa
   function optimize(initialGuess, learningRate, iterations) {
     let currentY = initialGuess;
 
@@ -60,13 +88,28 @@ function optimalYSize(X) {
     return currentY;
   }
 
-  // Set initial guess, learning rate, and iterations
-  const initialGuess = X / 4; // You can adjust this based on your problem
-  const learningRate = 0.01; // You can adjust this based on your problem
-  const iterations = 1; // You can adjust this based on your problem
+  //Define os valores iniciais de guess, rate, e o numerop de iteracoes
+  const initialGuess = X / 4;
+  const learningRate = 0.01;
+  const iterations = 1;
 
-  // Perform optimization
+  //realiza a otimizacao
   const optimalY = optimize(initialGuess, learningRate, iterations);
 
   return optimalY;
+}
+function calcularAreaMaxima(val1, val2) {
+  // Obter os valores dos catetos
+  var catetoA = val1;
+  var catetoB = val2;
+  // Calcular as dimensões do retângulo para área máxima
+  var largura = catetoA < catetoB ? catetoA : catetoB;
+  var altura = (catetoA * catetoB) / (2 * largura);
+
+  // Calcular a área máxima
+  var areaMaxima = largura * altura;
+
+  resultadoTriangulo.textContent = `Dimensoes do retangulo: Largura:${largura}, Altura:${altura}, Area Maxima: ${areaMaxima}`;
+  return largura, altura, areaMaxima;
+  // Exibir o resultado
 }
